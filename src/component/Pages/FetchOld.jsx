@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import getApi from '../Api/api';
+import {getApi} from '../Api/api';
 
 
 export default function FetchOld() {
@@ -25,7 +25,6 @@ export default function FetchOld() {
   }, [posts]);
 
   if (isLoading) return <p className="text-center text-lg mt-10">Loading posts...</p>;
-
   if (isError) return <p className="text-center text-red-600 text-lg mt-10">Something went wrong. Please try again later.</p>;
 
   return (

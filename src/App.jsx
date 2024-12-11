@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import {AppLayout, FetchOld, FetchTq, Home } from "./component/index"
+import {AppLayout, FetchItem, FetchOld, FetchTq, Home } from "./component/index"
 import  {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
@@ -18,6 +18,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/fetchold" element={<FetchOld />} />
               <Route path="/fetchtq" element={<FetchTq />} />
+              <Route path="/fetchtq/:id" element={<FetchItem />} />
             </Route>
           </Routes>
         </BrowserRouter>
