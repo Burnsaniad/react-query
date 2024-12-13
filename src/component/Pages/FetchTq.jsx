@@ -1,15 +1,27 @@
 import React, { useState } from "react";
-import { getApi } from "../Api/api";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { deletePost, getApi } from "../Api/api";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { NavLink } from "react-router-dom";
 
 export default function FetchTq() {
   const [ postNumber, setpostNumber ] = useState(0);
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["posts", postNumber],
     queryFn: () => getApi(postNumber),
     placeholderData: keepPreviousData,
   });
+
+  const queryClient = useQueryClient();
+
+  const dltMutation = useMutation({
+    mutationFn: (id)=> deletePost(id),
+    onSuccess: (data, id) =>{
+      queryClient.setQueryData(["posts", postNumber],(currEle) =>{
+        return currEle.filter((post) => post.id !== id)
+      })
+    }
+  })
 
   if (isLoading)
     return (
@@ -33,17 +45,20 @@ export default function FetchTq() {
         {data?.map((ele) => {
           const { id, title, body } = ele;
           return (
-            <li className="bg-slate-100 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition duration-200 p-5">
+            <li key={id} className="bg-slate-100 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition duration-200 p-5">
               <p className="text-gray-500 text-sm mb-1">Post ID: {id}</p>
               <h2 className="text-xl font-semibold mb-2 text-gray-800 truncate">
                 {title}
               </h2>
               <p className="text-sm text-gray-600 line-clamp-3">{body}</p>
+              <div className="flex justify-between"> 
               <NavLink to={`/fetchtq/${id}`} key={id}>
                 <span className="inline-block mt-4 text-blue-500 font-medium hover:underline">
                   Read More
                 </span>
               </NavLink>
+              <button onClick={()=> dltMutation.mutate(id)} className="mt-3 text-red-600 hover:underline">Delete</button>
+              </div>
             </li>
           );
         })}

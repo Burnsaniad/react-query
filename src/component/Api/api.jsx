@@ -17,6 +17,7 @@ export const getApi = async (postNumber) => {
 };
 export default getApi;
 
+  // get post for specefic id
 export const fetchitemsapi = async (id) => {
     try {
       const res = await api.get(`/posts/${id}`); // Corrected endpoint
@@ -26,4 +27,9 @@ export const fetchitemsapi = async (id) => {
       return []; // Return an empty array on error
     }
   };
+
+  // Delete Post
+  export const deletePost = async (id) => {
+      return await api.delete(`/posts/${id}`); 
+    }
  
