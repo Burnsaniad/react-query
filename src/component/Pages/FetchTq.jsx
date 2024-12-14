@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { deletePost, getApi } from "../Api/api";
+import { deletePost, getApi, updatePost } from "../Api/api";
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { NavLink } from "react-router-dom";
 
@@ -19,6 +19,18 @@ export default function FetchTq() {
     onSuccess: (data, id) =>{
       queryClient.setQueryData(["posts", postNumber],(currEle) =>{
         return currEle.filter((post) => post.id !== id)
+      })
+    }
+  })
+
+  const updateMutation = useMutation({
+    mutationFn: (id)=> updatePost(id),
+    onSuccess: (apidata, postid) =>{
+      console.log(apidata)
+      queryClient.setQueryData(["posts", postNumber],(postData) =>{
+        return postData?.map((currpost) =>{
+          return currpost.id === postid? {...currpost, title: apidata.data.title} : currpost
+        })
       })
     }
   })
@@ -58,6 +70,7 @@ export default function FetchTq() {
                 </span>
               </NavLink>
               <button onClick={()=> dltMutation.mutate(id)} className="mt-3 text-red-600 hover:underline">Delete</button>
+              <button onClick={()=> updateMutation.mutate(id)} className="mt-3 text-green-600 hover:underline">Update</button>
               </div>
             </li>
           );

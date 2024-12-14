@@ -33,3 +33,7 @@ export const fetchitemsapi = async (id) => {
       return await api.delete(`/posts/${id}`); 
     }
  
+  // Update Post
+  export const updatePost = async (id) => {
+    return await api.patch(`/posts/${id}`, {title:"I have done"}); 
+  }
