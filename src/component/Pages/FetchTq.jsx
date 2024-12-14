@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 export default function FetchTq() {
   const [ postNumber, setpostNumber ] = useState(0);
-
+  
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["posts", postNumber],
     queryFn: () => getApi(postNumber),

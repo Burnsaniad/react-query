@@ -24,7 +24,7 @@ export const fetchitemsapi = async (id) => {
       return res.status === 200 ? res.data : [];
     } catch (error) {
       console.error("Error fetching data:", error.message);
-      return []; // Return an empty array on error
+      return []; 
     }
   };
 
