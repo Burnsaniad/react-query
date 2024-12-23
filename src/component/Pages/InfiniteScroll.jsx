@@ -1,10 +1,10 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { fetchUsers } from '../Api/api'
 
 export default function InfiniteScroll() {
 
-    useInfiniteQuery({
+    const {data, hasNextPage, fetchNextPage, status, isFetchingNextPage} = useInfiniteQuery({
         queryKey: ["users"],
         queryFn: fetchUsers,
         getNextPageParam: (lastPage, allPages) => {
@@ -23,10 +23,9 @@ export default function InfiniteScroll() {
             }
           };
           useEffect(() => {
-            if (inView && hasNextPage) {
-              fetchNextPage();
-            }
-          })
+            window.addEventListener("scroll", handleScroll);
+            return () => window.removeEventListener("scroll", handleScroll);
+            },[hasNextPage]);
   return (
     <div>
     <h1>Infinite Scroll with React Query v5</h1>
@@ -49,7 +48,7 @@ export default function InfiniteScroll() {
         ))}
       </ul>
     ))}
-    <div ref={ref} style={{ padding: "20px", textAlign: "center" }}>
+    <div style={{ padding: "20px", textAlign: "center" }}>
       {isFetchingNextPage
         ? "Loading more..."
         : hasNextPage
