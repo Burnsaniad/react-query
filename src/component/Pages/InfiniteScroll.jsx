@@ -27,35 +27,37 @@ export default function InfiniteScroll() {
             return () => window.removeEventListener("scroll", handleScroll);
             },[hasNextPage]);
   return (
-    <div>
-    <h1>Infinite Scroll with React Query v5</h1>
-
+    <div className="p-4">
+    <h1 className="text-2xl font-bold text-center mb-6">
+      Infinite Scroll with React Query v5
+    </h1>
+  
     {data?.pages?.map((page, index) => (
-      <ul key={index}>
+      <ul key={index} className="space-y-4">
         {page.map((user) => (
           <li
             key={user.id}
-            style={{ padding: "10px", border: "1px solid #ccc" }}
+            className="flex items-center p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow"
           >
-            <p>{user.login}</p>
             <img
               src={user.avatar_url}
               alt={user.login}
-              width={50}
-              height={50}
+              className="w-12 h-12 rounded-full mr-4"
             />
+            <p className="text-lg font-medium">{user.login}</p>
           </li>
         ))}
       </ul>
     ))}
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      {isFetchingNextPage
-        ? "Loading more..."
-        : hasNextPage
-        ? "Scroll down to load more"
-        : "No more users"}
+    <div className="py-6 text-center text-sm text-gray-600">
+      {isFetchingNextPage ? (
+        "Loading more..."
+      ) : hasNextPage ? (
+        <span className="cursor-pointer hover:underline">Scroll down to load more</span>
+      ) : (
+        "No more users"
+      )}
     </div>
-  </div>
-   
+  </div>  
   )
 }

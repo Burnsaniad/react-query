@@ -35,7 +35,7 @@ export const fetchitemsapi = async (id) => {
  
   // Update Post
   export const updatePost = async (id) => {
-    return await api.patch(`/posts/${id}`, {title:"I have done"}); 
+    return await api.patch(`/posts/${id}`, {title:"I have done" }); 
   }
 
   //Infinite Scroll
