@@ -46,6 +46,18 @@ export default function Header() {
               FetchTq
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/infinite"
+              className={({ isActive }) =>
+                `hover:underline hover:text-indigo-300 underline-offset-4 transition ${
+                  isActive ? 'text-indigo-400' : ''
+                }`
+              }
+            >
+              InfiniteScroll
+            </NavLink>
+          </li>
         </ul>
       </div>
     </header>
