@@ -28,7 +28,7 @@ export default function FetchOld() {
   if (isError) return <p className="text-center text-red-600 text-lg mt-10">Something went wrong. Please try again later.</p>;
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 mt-20">
       <ul className="grid grid-cols-3 gap-6">
         {posts?.map((post) => {
           const { id, title, body } = post;
