@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 export default function Header() {
   return (
 
-    <header className=" bg-slate-700 text-white shadow-md">
+    <header className=" bg-slate-700 text-white shadow-md fixed top-0 left-0 right-0 z-10 backdrop-blur-sm">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
         <NavLink to="/" className="text-3xl font-bold tracking-wide hover:text-indigo-400 transition">
           ReactWithTanstack
