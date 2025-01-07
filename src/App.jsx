@@ -4,8 +4,6 @@ import {AppLayout, FetchItem, FetchOld, FetchTq, Home } from "./component/index"
 import  {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import InfiniteScroll from "./component/Pages/InfiniteScroll";
-
-
 function App() {
 
   const queryClient = new QueryClient()
